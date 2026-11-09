@@ -40,7 +40,17 @@ function displayBooks() {
         const status = document.createElement("p");
         status.textContent = book.read ? "Read" : "Not read";
 
-        card.append(title, author, pages, status);
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.classList.add("remove-btn");
+        removeButton.dataset.id = book.id;
+        removeButton.addEventListener("click", function() {
+            const bookIndex = myLibrary.findIndex((libraryBook) => libraryBook.id === book.id);
+            myLibrary.splice(bookIndex, 1);
+            displayBooks();
+        });
+
+        card.append(title, author, pages, status, removeButton);
         bookContainer.appendChild(card);
     });
 }
